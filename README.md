@@ -23,6 +23,62 @@ Ardufocus PCB schematics are licensed under [CC BY-NC-SA 4.0](https://creativeco
 
 ----
 
+### This fork targets Arduino UNO class boards based on the ATmega328P/168 family.
+
+Default hardware profile in this repository:
+
+- `Arduino UNO`
+- `28BYJ-48` unipolar stepper motor
+- `ULN2003` driver board
+- ASCOM / Moonlite serial control on the hardware UART
+- JDY-34-SPP Bluetooth control on a dedicated software serial backend
+
+Default pinout in this fork:
+
+- `D0/D1`: hardware serial for ASCOM / Moonlite
+- `D2`: Bluetooth RX from JDY-34-SPP TX
+- `D3`: Bluetooth TX to JDY-34-SPP RX
+- `D4/D5/D6/D7`: ULN2003 `IN1/IN2/IN3/IN4`
+
+Quick wiring reference:
+
+- `UNO 5V` -> `ULN2003 VCC`
+- `UNO GND` -> `ULN2003 GND`
+- `UNO D4` -> `ULN2003 IN1`
+- `UNO D5` -> `ULN2003 IN2`
+- `UNO D6` -> `ULN2003 IN3`
+- `UNO D7` -> `ULN2003 IN4`
+- `28BYJ-48` -> `ULN2003` motor connector
+- `UNO 5V` -> `JDY-34 VCC` only if your module board is 5V tolerant; otherwise power it at the module's required voltage
+- `UNO GND` -> `JDY-34 GND`
+- `UNO D2` <- `JDY-34 TXD`
+- `UNO D3` -> `JDY-34 RXD`
+
+Bluetooth wiring note:
+
+- many JDY-34 boards use 3.3 V logic on `RXD`; if your board is not explicitly 5 V tolerant, add a level shifter or a resistor divider between `UNO D3` and `JDY-34 RXD`
+
+Default Bluetooth commands:
+
+- `FWD` or `AVANTI`: continuous forward move
+- `BWD` or `INDIETRO`: continuous backward move
+- `FWD <n>`: move forward by `n` steps
+- `BWD <n>`: move backward by `n` steps
+- `STOP`: stop movement
+- `POS`: report current position
+
+Notes:
+
+- the Bluetooth backend in this fork is AVR bare-metal and intentionally limited to the ATmega328P/168 family
+- the ULN2003 default uses half-step mode on a fresh EEPROM for smoother 28BYJ-48 motion
+- if EEPROM already contains older settings, clear it once if you want the new defaults to take effect
+
+Build:
+
+```ini
+pio run -e uno
+```
+
 ### For documentation, tutorials and howto visit [ardufocus.com](https://ardufocus.com).
 
 ----

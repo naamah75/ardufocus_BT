@@ -88,15 +88,15 @@
 // The ULN2003 shall be used with the unmodded version of 28BYJ-48 or any other
 // Unipolar stepper motor. The A4988 driver should be used with Bipolar stepper
 // motors or the modded version of the 28BYJ-48 (see the doc/ folder).
-#define MOTOR1_USE_A4988_DRIVER
+//#define MOTOR1_USE_A4988_DRIVER
 //#define MOTOR1_USE_DRV8825_DRIVER
-//#define MOTOR1_USE_ULN2003_DRIVER
+#define MOTOR1_USE_ULN2003_DRIVER
 
 // Driver pin-out definition
 // Define bellow the pin-out for your specific driver.
 #ifdef MOTOR1_USE_ULN2003_DRIVER
   //                    IN1, IN2, IN3, IN4
-  #define MOTOR1_PINOUT   2,   3,   4,   5
+  #define MOTOR1_PINOUT   4,   5,   6,   7
 #endif
 
 #ifdef MOTOR1_USE_A4988_DRIVER
@@ -136,8 +136,11 @@
 //  - Max speed: 1000
 //  - Min speed: 250
 //
-#define MOTOR1_MAX_SPEED 150
+#define MOTOR1_MAX_SPEED 250
 #define MOTOR1_MIN_SPEED  25
+
+// Default fresh-EEPROM startup mode for the ULN2003 + 28BYJ-48 combination.
+#define MOTOR1_DEFAULT_HALF_STEP
 
 
 // ----------------------------------------------------------------------------
@@ -195,6 +198,26 @@
 // returned, either it is valid or not. Enabling the following option will force
 // the temperature gathering process on every temperature read command.
 #define START_TEMP_CONVERSION_ON_EVERY_GET
+
+
+// ----------------------------------------------------------------------------
+// BLUETOOTH SPP --------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// JDY-34-SPP serial bridge connected through a dedicated AVR software serial
+// backend on free Arduino UNO pins, keeping the hardware UART dedicated to the
+// ASCOM/Moonlite protocol.
+#define ENABLE_BLUETOOTH_SPP
+
+// JDY-34 default baud rate is usually 9600 bps.
+#define BLUETOOTH_SPP_BAUDRATE 9600
+
+// The current AVR software serial backend uses INT0 for RX, so D2 is required
+// as receive pin on the ATmega328/168 family. TX can remain on any free pin.
+#define BLUETOOTH_SPP_RX_PIN 2
+#define BLUETOOTH_SPP_TX_PIN 3
+
+// Select which configured focuser motor is controlled by Bluetooth commands.
+#define BLUETOOTH_SPP_MOTOR MOTOR_ONE
 
 
 // ----------------------------------------------------------------------------

@@ -29,6 +29,7 @@
 #include "stepper.h"
 #include "motordrv.h"
 #include "analog.h"
+#include "bluetooth_spp.h"
 #include "moonlite.h"
 #include "ui.h"
 

@@ -29,6 +29,15 @@
     {
       memset(ptr, 0, sizeof(eeprom_map_t));
       (*ptr).header = EEPROM_MAGIC_HEADER;
+
+      #ifdef MOTOR1_DEFAULT_HALF_STEP
+        (*ptr).half_step_m1 = true;
+      #endif
+
+      #ifdef MOTOR2_DEFAULT_HALF_STEP
+        (*ptr).half_step_m2 = true;
+      #endif
+
       eeprom_save(ptr);
     }
   }
