@@ -1,4 +1,8 @@
 .pioenvs
 .piolibdeps
 .pio/
+.vscode/
+*.code-workspace
+.DS_Store
+Thumbs.db
 ardufocus/localcfg.h
