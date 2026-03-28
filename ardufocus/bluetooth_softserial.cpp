@@ -3,9 +3,9 @@
 #ifdef ENABLE_BLUETOOTH_SPP
 
 #include <Arduino.h>
-#include <NeoSWSerial.h>
+#include <SoftwareSerial.h>
 
-static NeoSWSerial bt_port(BLUETOOTH_SPP_RX_PIN, BLUETOOTH_SPP_TX_PIN);
+static SoftwareSerial bt_port(BLUETOOTH_SPP_RX_PIN, BLUETOOTH_SPP_TX_PIN);
 
 bluetooth_softserial bt_serial;
 
