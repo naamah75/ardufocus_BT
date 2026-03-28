@@ -17,12 +17,6 @@ class bluetooth_softserial {
     char read();
     void write(const char& c);
     void write(const char* str);
-
-    static void handle_rx_start();
-    static void handle_tx_tick();
-
-  private:
-    static void start_tx();
 };
 
 extern bluetooth_softserial bt_serial;
