@@ -188,6 +188,8 @@ class moonlite: protected protocol, protected serial {
     }
 };
 
+#ifndef ENABLE_UART_DEBUG_CONSOLE
 static moonlite comms;
+#endif
 
 #endif

@@ -38,16 +38,16 @@ Default pinout in this fork:
 - `D0/D1`: hardware serial for ASCOM / Moonlite
 - `D2`: Bluetooth RX from JDY-34-SPP TX
 - `D3`: Bluetooth TX to JDY-34-SPP RX
-- `D4/D5/D6/D7`: ULN2003 `IN1/IN2/IN3/IN4`
+- `D8/D9/D10/D11`: ULN2003 `IN1/IN2/IN3/IN4`
 
 Quick wiring reference:
 
 - `UNO 5V` -> `ULN2003 VCC`
 - `UNO GND` -> `ULN2003 GND`
-- `UNO D4` -> `ULN2003 IN1`
-- `UNO D5` -> `ULN2003 IN2`
-- `UNO D6` -> `ULN2003 IN3`
-- `UNO D7` -> `ULN2003 IN4`
+- `UNO D8` -> `ULN2003 IN1`
+- `UNO D9` -> `ULN2003 IN2`
+- `UNO D10` -> `ULN2003 IN3`
+- `UNO D11` -> `ULN2003 IN4`
 - `28BYJ-48` -> `ULN2003` motor connector
 - `UNO 5V` -> `JDY-34 VCC` only if your module board is 5V tolerant; otherwise power it at the module's required voltage
 - `UNO GND` -> `JDY-34 GND`
@@ -66,12 +66,15 @@ Default Bluetooth commands:
 - `BWD <n>`: move backward by `n` steps
 - `STOP`: stop movement
 - `POS`: report current position
+- `INFO`: report Bluetooth backend info and whether any traffic has been seen since boot
 
 Notes:
 
 - the Bluetooth backend in this fork is AVR bare-metal and intentionally limited to the ATmega328P/168 family
 - the ULN2003 default uses half-step mode on a fresh EEPROM for smoother 28BYJ-48 motion
 - if EEPROM already contains older settings, clear it once if you want the new defaults to take effect
+- on boot the firmware prints `BT READY` and `BT LINK UNKNOWN`; the backend can detect traffic seen on the Bluetooth UART, but it cannot universally identify or interrogate every module unless that module supports a compatible AT mode
+- if you enable `ENABLE_UART_DEBUG_CONSOLE` in `ardufocus/config.h`, the USB serial port stops speaking ASCOM/Moonlite and becomes a plain text debug console for `FWD`, `BWD`, `STOP`, `POS`, `INFO` and `HELP`
 
 Build:
 

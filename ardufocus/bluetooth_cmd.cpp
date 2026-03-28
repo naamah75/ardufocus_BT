@@ -49,6 +49,11 @@ void bluetooth_cmd::parse(char* line)
     return;
   }
 
+  if (command == CMD_INFO) {
+    reply_info();
+    return;
+  }
+
   if (command == CMD_HELP) {
     reply_help();
     return;
@@ -92,6 +97,10 @@ bluetooth_cmd::command_t bluetooth_cmd::parse_command(char* token)
 
   if ((strcmp(token, "POS") == 0) || (strcmp(token, "POSITION") == 0)) {
     return CMD_POSITION;
+  }
+
+  if ((strcmp(token, "INFO") == 0) || (strcmp(token, "BTINFO") == 0) || (strcmp(token, "STATUS") == 0)) {
+    return CMD_INFO;
   }
 
   if ((strcmp(token, "HELP") == 0) || (strcmp(token, "?") == 0)) {
@@ -168,12 +177,32 @@ void bluetooth_cmd::reply_position()
   bt_spp.write_line("");
 }
 
+void bluetooth_cmd::reply_info()
+{
+  bt_spp.write_line("INFO BT BACKEND AVR_SOFTSERIAL");
+  bt_spp.write("INFO BT BAUD ");
+  bt_spp.write_uint32(BLUETOOTH_SPP_BAUDRATE);
+  bt_spp.write_line("");
+  bt_spp.write("INFO BT RX_PIN ");
+  bt_spp.write_uint32(BLUETOOTH_SPP_RX_PIN);
+  bt_spp.write_line("");
+  bt_spp.write("INFO BT TX_PIN ");
+  bt_spp.write_uint32(BLUETOOTH_SPP_TX_PIN);
+  bt_spp.write_line("");
+  bt_spp.write("INFO BT ACTIVE ");
+  bt_spp.write_line(bt_spp.has_seen_activity() ? "YES" : "NO");
+  bt_spp.write("INFO BT RX_COUNT ");
+  bt_spp.write_uint32(bt_spp.get_rx_count());
+  bt_spp.write_line("");
+}
+
 void bluetooth_cmd::reply_help()
 {
   bt_spp.write_line("FWD [n]");
   bt_spp.write_line("BWD [n]");
   bt_spp.write_line("STOP");
   bt_spp.write_line("POS");
+  bt_spp.write_line("INFO");
 }
 
 #endif

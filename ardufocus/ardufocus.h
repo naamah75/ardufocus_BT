@@ -31,6 +31,7 @@
 #include "analog.h"
 #include "bluetooth_spp.h"
 #include "moonlite.h"
+#include "uart_debug.h"
 #include "ui.h"
 
 #endif

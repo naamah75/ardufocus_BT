@@ -17,6 +17,8 @@ class bluetooth_spp {
     void write(const char* str);
     void write_line(const char* str);
     void write_uint32(const uint32_t& value);
+    uint8_t has_seen_activity();
+    uint32_t get_rx_count();
 
   private:
     void process(char c);

@@ -61,6 +61,11 @@
 // [bug report]: https://github.com/arduino/Arduino/issues/4492
 //#define ENABLE_REMOTE_RESET
 
+// Enable this to repurpose the hardware UART as a plain text debug console
+// instead of the Moonlite / ASCOM serial protocol. When enabled you can send
+// the same text commands used on Bluetooth over the USB serial port.
+//#define ENABLE_UART_DEBUG_CONSOLE
+
 // Enable a subset of commands to control the status of the DTR auto-reset
 // feature on the Arduino boards. By default Ardufocus uses a cap between the
 // reset pin and ground to prevent the DTR signal to reset the board, which
@@ -96,7 +101,7 @@
 // Define bellow the pin-out for your specific driver.
 #ifdef MOTOR1_USE_ULN2003_DRIVER
   //                    IN1, IN2, IN3, IN4
-  #define MOTOR1_PINOUT   4,   5,   6,   7
+  #define MOTOR1_PINOUT   8,   9,  10,  11
 #endif
 
 #ifdef MOTOR1_USE_A4988_DRIVER

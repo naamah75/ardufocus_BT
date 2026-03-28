@@ -21,6 +21,7 @@ class bluetooth_cmd {
       CMD_BACKWARD,
       CMD_STOP,
       CMD_POSITION,
+      CMD_INFO,
       CMD_HELP
     };
 
@@ -31,6 +32,7 @@ class bluetooth_cmd {
     void reply_ok();
     void reply_error(const char* message);
     void reply_position();
+    void reply_info();
     void reply_help();
 };
 
