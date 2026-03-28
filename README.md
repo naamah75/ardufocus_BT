@@ -30,8 +30,9 @@ Default hardware profile in this repository:
 - `Arduino UNO`
 - `28BYJ-48` unipolar stepper motor
 - `ULN2003` driver board
+- build system based on `PlatformIO` with `framework = arduino`
 - ASCOM / Moonlite serial control on the hardware UART
-- JDY-34-SPP Bluetooth control on a dedicated software serial backend
+- JDY-34-SPP / HC-05 / HC-06 Bluetooth control via `SoftwareSerial`
 
 Default pinout in this fork:
 
@@ -70,11 +71,17 @@ Default Bluetooth commands:
 
 Notes:
 
-- the Bluetooth backend in this fork is AVR bare-metal and intentionally limited to the ATmega328P/168 family
+- this fork now builds with the Arduino framework and uses `SoftwareSerial` for the Bluetooth UART on `D2/D3`
 - the ULN2003 default uses half-step mode on a fresh EEPROM for smoother 28BYJ-48 motion
 - if EEPROM already contains older settings, clear it once if you want the new defaults to take effect
 - on boot the firmware prints `BT READY` and `BT LINK UNKNOWN`; the backend can detect traffic seen on the Bluetooth UART, but it cannot universally identify or interrogate every module unless that module supports a compatible AT mode
 - if you enable `ENABLE_UART_DEBUG_CONSOLE` in `ardufocus/config.h`, the USB serial port stops speaking ASCOM/Moonlite and becomes a plain text debug console for `FWD`, `BWD`, `STOP`, `POS`, `INFO` and `HELP`
+
+Android app suggestion:
+
+- `Serial Bluetooth Terminal` is the easiest ready-made Android app for this firmware
+- it supports Bluetooth Classic SPP modules such as `JDY-34-SPP`, `HC-05` and `HC-06`
+- you can create custom buttons/macros like `FWD`, `BWD`, `STOP`, `FWD 50`, `BWD 50`, `POS` and `INFO`
 
 Build:
 
