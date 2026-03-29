@@ -83,6 +83,19 @@ Android app suggestion:
 - it supports Bluetooth Classic SPP modules such as `JDY-34-SPP`, `HC-05` and `HC-06`
 - you can create custom buttons/macros like `FWD`, `BWD`, `STOP`, `FWD 50`, `BWD 50`, `POS` and `INFO`
 
+Included Android app:
+
+- this repository now also contains a small native Android app in `android-app/`
+- it provides paired-device selection, connect/disconnect, continuous `Avanti` / `Indietro`, step presets, `STOP`, `POS`, and a live text log
+- if a paired module named `JDY-31-SPP` is present, the app selects it by default; otherwise it falls back to `JDY-34-SPP`, `HC-05`, `HC-06`, then the first paired device
+- the two large direction buttons send continuous `FWD` and `BWD`
+- preset buttons send relative moves for `1`, `5`, `10`, `50`, `100`, and `500` steps in either direction
+- the app shows the current focuser position, requests `POS` on connect and every 60 seconds, and retries `POS` / `INFO` up to 5 times if the firmware answers `ERR UNKNOWN`
+- after relative moves, the app updates the displayed position optimistically and later re-syncs it from the controller
+- open `android-app/` with Android Studio to build the APK
+- on Android 12 and newer, grant both Bluetooth connect and Bluetooth scan permissions when the app asks for them
+- only APK files under `android-app/app/release/` are meant to be versioned; generated APKs elsewhere remain ignored
+
 Build:
 
 ```ini
