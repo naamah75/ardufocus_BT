@@ -19,5 +19,10 @@
     <color name="stop_red">#B64752</color>
     <color name="info_bg">#183247</color>
     <color name="log_bg">#0B141F</color>
-    <color name="log_text">#CDE3FF</color>
+    <color name="log_text">#8FA4BE</color>
+    <color name="pip_bg">#0B140C</color>
+    <color name="pip_text">#98D07A</color>
+    <color name="pip_stroke">#365438</color>
+    <color name="step_selected">#E8EEF9</color>
+    <color name="step_selected_text">#07111E</color>
 </resources>

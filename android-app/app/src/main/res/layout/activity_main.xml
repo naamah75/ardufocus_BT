@@ -12,11 +12,25 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/navTabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@color/panel_bg"
+            app:tabInlineLabel="true"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/accent_soft"
+            app:tabIndicatorFullWidth="false"
+            app:tabMode="fixed"
+            app:tabRippleColor="@android:color/transparent" />
+
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/connectionPageCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/panel_bg"
-            app:cardCornerRadius="28dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
             app:strokeColor="@color/panel_stroke"
             app:strokeWidth="1dp">
@@ -27,20 +41,9 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/titleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="monospace"
-                    android:letterSpacing="0.04"
-                    android:text="ArduFocus Controller"
-                    android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-                    android:textColor="@color/text_primary" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
                     android:orientation="horizontal">
 
                     <Spinner
@@ -56,9 +59,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:fontFamily="sans-serif-monospace"
                         android:text="Connetti"
                         app:backgroundTint="@color/accent"
-                        app:cornerRadius="18dp" />
+                        app:cornerRadius="10dp" />
                 </LinearLayout>
 
                 <TextView
@@ -68,15 +72,50 @@
                     android:layout_marginTop="12dp"
                     android:text="Disconnesso"
                     android:textColor="@color/accent_soft" />
+
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <LinearLayout
+            android:id="@+id/connectionDisclaimerCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_button_neutral"
+            android:orientation="vertical"
+            android:padding="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-monospace"
+                android:text="ArduFocus controller"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif-monospace"
+                android:text="github.com/naamah75/ardufocus_BT"
+                android:textColor="@color/text_secondary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif-monospace"
+                android:text="versione 0.3-BT"
+                android:textColor="@color/text_secondary" />
+        </LinearLayout>
+
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/focusPageCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             app:cardBackgroundColor="@color/panel_bg"
-            app:cardCornerRadius="28dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
             app:strokeColor="@color/panel_stroke"
             app:strokeWidth="1dp">
@@ -87,44 +126,23 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/stepLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:fontFamily="sans-serif-monospace"
-                    android:text="Fuocheggiamento"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                    android:textColor="@color/white" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/ic_focus_badge_bg"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="12dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="12dp"
-                    android:paddingBottom="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-monospace"
-                        android:text="Posizione"
-                        android:textColor="@color/text_secondary" />
+                    android:paddingTop="8dp"
+                    android:paddingBottom="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/positionValueText"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="sans-serif-monospace"
-                        android:gravity="end"
+                        android:fontFamily="@font/dseg7_classic_regular"
+                        android:gravity="center"
                         android:text="--"
                         android:textColor="@color/white"
+                        android:textSize="42sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -134,286 +152,213 @@
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal">
 
-                    <androidx.appcompat.widget.AppCompatImageButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/backwardButton"
                         android:layout_width="0dp"
                         android:layout_height="64dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_button_backward"
-                        android:contentDescription="Indietro"
-                        android:padding="14dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_focus_backward"
-                        app:tint="@null" />
+                        app:backgroundTint="@color/backward_pastel"
+                        android:text=""
+                        app:cornerRadius="10dp"
+                        app:icon="@drawable/ic_focus_backward"
+                        app:iconGravity="textTop"
+                        app:iconPadding="0dp"
+                        app:iconTint="@null"
+                        app:iconSize="36dp" />
 
-                    <androidx.appcompat.widget.AppCompatImageButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/forwardButton"
                         android:layout_width="0dp"
                         android:layout_height="64dp"
                         android:layout_marginStart="12dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_button_forward"
-                        android:contentDescription="Avanti"
-                        android:padding="14dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_focus_forward"
-                        app:tint="@null" />
+                        app:backgroundTint="@color/forward_pastel"
+                        android:text=""
+                        app:cornerRadius="10dp"
+                        app:icon="@drawable/ic_focus_forward"
+                        app:iconGravity="textTop"
+                        app:iconPadding="0dp"
+                        app:iconTint="@null"
+                        app:iconSize="36dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/step1Button"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-monospace"
+                            android:maxLines="1"
+                            android:text="1"
+                            android:textColor="@color/text_primary"
+                            app:backgroundTint="@color/neutral_gray"
+                            app:cornerRadius="10dp" />
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/backward1Button"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:textColor="@color/text_primary"
-                                android:textSize="12sp"
-                                android:text="1"
-                                app:backgroundTint="@color/backward_pastel"
-                                app:cornerRadius="14dp" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/backward5Button"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:textColor="@color/text_primary"
-                                android:textSize="12sp"
-                                android:text="5"
-                                app:backgroundTint="@color/backward_pastel"
-                                app:cornerRadius="14dp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/step2Button"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:orientation="horizontal">
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-monospace"
+                            android:maxLines="1"
+                            android:text="2"
+                            android:textColor="@color/text_primary"
+                            app:backgroundTint="@color/neutral_gray"
+                            app:cornerRadius="10dp" />
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/backward10Button"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:textColor="@color/text_primary"
-                                android:textSize="12sp"
-                                android:text="10"
-                                app:backgroundTint="@color/backward_pastel"
-                                app:cornerRadius="14dp" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/backward50Button"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:textColor="@color/text_primary"
-                                android:textSize="12sp"
-                                android:text="50"
-                                app:backgroundTint="@color/backward_pastel"
-                                app:cornerRadius="14dp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/step5Button"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:orientation="horizontal">
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/backward100Button"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:textColor="@color/text_primary"
-                                android:textSize="11sp"
-                                android:text="100"
-                                app:backgroundTint="@color/backward_pastel"
-                                app:cornerRadius="14dp" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/backward500Button"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:textColor="@color/text_primary"
-                                android:textSize="11sp"
-                                android:text="500"
-                                app:backgroundTint="@color/backward_pastel"
-                                app:cornerRadius="14dp" />
-                        </LinearLayout>
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-monospace"
+                            android:maxLines="1"
+                            android:text="5"
+                            android:textColor="@color/text_primary"
+                            app:backgroundTint="@color/neutral_gray"
+                            app:cornerRadius="10dp" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/step10Button"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-monospace"
+                            android:maxLines="1"
+                            android:text="10"
+                            android:textColor="@color/text_primary"
+                            app:backgroundTint="@color/neutral_gray"
+                            app:cornerRadius="10dp" />
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/forward1Button"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:textColor="@color/text_primary"
-                                android:textSize="12sp"
-                                android:text="1"
-                                app:backgroundTint="@color/forward_pastel"
-                                app:cornerRadius="14dp" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/forward5Button"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:textColor="@color/text_primary"
-                                android:textSize="12sp"
-                                android:text="5"
-                                app:backgroundTint="@color/forward_pastel"
-                                app:cornerRadius="14dp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/step25Button"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:orientation="horizontal">
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-monospace"
+                            android:maxLines="1"
+                            android:text="25"
+                            android:textColor="@color/text_primary"
+                            app:backgroundTint="@color/neutral_gray"
+                            app:cornerRadius="10dp" />
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/forward10Button"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:textColor="@color/text_primary"
-                                android:textSize="12sp"
-                                android:text="10"
-                                app:backgroundTint="@color/forward_pastel"
-                                app:cornerRadius="14dp" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/forward50Button"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:textColor="@color/text_primary"
-                                android:textSize="12sp"
-                                android:text="50"
-                                app:backgroundTint="@color/forward_pastel"
-                                app:cornerRadius="14dp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/step50Button"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:orientation="horizontal">
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-monospace"
+                            android:maxLines="1"
+                            android:text="50"
+                            android:textColor="@color/text_primary"
+                            app:backgroundTint="@color/neutral_gray"
+                            app:cornerRadius="10dp" />
+                    </LinearLayout>
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/forward100Button"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:textColor="@color/text_primary"
-                                android:textSize="11sp"
-                                android:text="100"
-                                app:backgroundTint="@color/forward_pastel"
-                                app:cornerRadius="14dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal">
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/forward500Button"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:textColor="@color/text_primary"
-                                android:textSize="11sp"
-                                android:text="500"
-                                app:backgroundTint="@color/forward_pastel"
-                                app:cornerRadius="14dp" />
-                        </LinearLayout>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/step100Button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-monospace"
+                            android:maxLines="1"
+                            android:text="100"
+                            android:textColor="@color/text_primary"
+                            app:backgroundTint="@color/neutral_gray"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/step250Button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-monospace"
+                            android:maxLines="1"
+                            android:text="250"
+                            android:textColor="@color/text_primary"
+                            app:backgroundTint="@color/neutral_gray"
+                            app:cornerRadius="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/step500Button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-monospace"
+                            android:maxLines="1"
+                            android:text="500"
+                            android:textColor="@color/text_primary"
+                            app:backgroundTint="@color/neutral_gray"
+                            app:cornerRadius="10dp" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/stopButton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="46dp"
                     android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
+                    android:fontFamily="sans-serif-monospace"
+                    app:backgroundTint="@color/neutral_gray"
+                    android:text="STOP"
+                    android:textColor="@color/white"
+                    app:cornerRadius="10dp" />
 
-                    <androidx.appcompat.widget.AppCompatImageButton
-                        android:id="@+id/stopButton"
-                        android:layout_width="0dp"
-                        android:layout_height="56dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_button_neutral"
-                        android:contentDescription="STOP"
-                        android:padding="14dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_focus_stop"
-                        app:tint="@null" />
-
-                    <androidx.appcompat.widget.AppCompatImageButton
-                        android:id="@+id/posButton"
-                        android:layout_width="0dp"
-                        android:layout_height="56dp"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_button_neutral"
-                        android:contentDescription="POS"
-                        android:padding="14dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_focus_info"
-                        app:tint="@null" />
-                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <TextView
+            android:id="@+id/telemetryPreviewText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/pip_bg"
+            android:fontFamily="@font/vt323_regular"
+            android:minHeight="72dp"
+            android:padding="12dp"
+            android:text="--"
+            android:textColor="@color/pip_text"
+            android:textSize="22sp" />
+
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/telemetryPageCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            app:cardBackgroundColor="@color/log_bg"
-            app:cardCornerRadius="28dp"
+            app:cardBackgroundColor="@color/pip_bg"
+            app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
-            app:strokeColor="@color/panel_stroke"
+            app:strokeColor="@color/pip_stroke"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -422,32 +367,38 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/logLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-monospace"
-                    android:text="Telemetria ArduFocus"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                    android:textColor="@color/white" />
-
                 <ScrollView
                     android:id="@+id/logScroll"
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_height="520dp"
                     android:fillViewport="true">
 
                     <TextView
                         android:id="@+id/logText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/log_text"
+                        android:fontFamily="@font/vt323_regular"
+                        android:letterSpacing="0.04"
+                        android:textColor="@color/pip_text"
+                        android:textSize="24sp"
                         android:textIsSelectable="true"
                         android:typeface="monospace" />
                 </ScrollView>
+
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/infoButton"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-monospace"
+            android:text="INFO"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/neutral_gray"
+            app:cornerRadius="10dp" />
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

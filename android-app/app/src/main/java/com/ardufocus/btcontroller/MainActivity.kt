@@ -16,13 +16,14 @@ import android.view.Gravity
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.ImageButton
+import com.google.android.material.card.MaterialCardView
 import android.widget.ScrollView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.material.tabs.TabLayout
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.OutputStream
@@ -41,24 +42,26 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var deviceSpinner: Spinner
     private lateinit var connectButton: Button
+    private lateinit var navTabs: TabLayout
+    private lateinit var connectionPageCard: MaterialCardView
+    private lateinit var connectionDisclaimerCard: View
+    private lateinit var focusPageCard: MaterialCardView
+    private lateinit var telemetryPageCard: MaterialCardView
     private lateinit var statusText: TextView
     private lateinit var positionValueText: TextView
-    private lateinit var backwardButton: ImageButton
-    private lateinit var forwardButton: ImageButton
-    private lateinit var backward1Button: Button
-    private lateinit var backward5Button: Button
-    private lateinit var backward10Button: Button
-    private lateinit var backward50Button: Button
-    private lateinit var backward100Button: Button
-    private lateinit var backward500Button: Button
-    private lateinit var forward1Button: Button
-    private lateinit var forward5Button: Button
-    private lateinit var forward10Button: Button
-    private lateinit var forward50Button: Button
-    private lateinit var forward100Button: Button
-    private lateinit var forward500Button: Button
-    private lateinit var stopButton: ImageButton
-    private lateinit var posButton: ImageButton
+    private lateinit var telemetryPreviewText: TextView
+    private lateinit var backwardButton: Button
+    private lateinit var forwardButton: Button
+    private lateinit var step1Button: Button
+    private lateinit var step2Button: Button
+    private lateinit var step5Button: Button
+    private lateinit var step10Button: Button
+    private lateinit var step25Button: Button
+    private lateinit var step50Button: Button
+    private lateinit var step100Button: Button
+    private lateinit var step250Button: Button
+    private lateinit var step500Button: Button
+    private lateinit var stopButton: Button
     private lateinit var logText: TextView
     private lateinit var logScroll: ScrollView
 
@@ -67,8 +70,9 @@ class MainActivity : AppCompatActivity() {
     private var output: OutputStream? = null
     private var readerThread: Thread? = null
     private var connectedDeviceName: String? = null
-    private var pendingPosRetries = 0
-    private var pendingInfoRetries = 0
+    private var pendingCommand: String? = null
+    private var pendingCommandRetries = 0
+    private var selectedStep = 50
     private val uiHandler = Handler(Looper.getMainLooper())
     private val periodicPosRefresh = object : Runnable {
         override fun run() {
@@ -93,24 +97,26 @@ class MainActivity : AppCompatActivity() {
 
         deviceSpinner = findViewById(R.id.deviceSpinner)
         connectButton = findViewById(R.id.connectButton)
+        navTabs = findViewById(R.id.navTabs)
+        connectionPageCard = findViewById(R.id.connectionPageCard)
+        connectionDisclaimerCard = findViewById(R.id.connectionDisclaimerCard)
+        focusPageCard = findViewById(R.id.focusPageCard)
+        telemetryPageCard = findViewById(R.id.telemetryPageCard)
         statusText = findViewById(R.id.statusText)
         positionValueText = findViewById(R.id.positionValueText)
+        telemetryPreviewText = findViewById(R.id.telemetryPreviewText)
         backwardButton = findViewById(R.id.backwardButton)
         forwardButton = findViewById(R.id.forwardButton)
-        backward1Button = findViewById(R.id.backward1Button)
-        backward5Button = findViewById(R.id.backward5Button)
-        backward10Button = findViewById(R.id.backward10Button)
-        backward50Button = findViewById(R.id.backward50Button)
-        backward100Button = findViewById(R.id.backward100Button)
-        backward500Button = findViewById(R.id.backward500Button)
-        forward1Button = findViewById(R.id.forward1Button)
-        forward5Button = findViewById(R.id.forward5Button)
-        forward10Button = findViewById(R.id.forward10Button)
-        forward50Button = findViewById(R.id.forward50Button)
-        forward100Button = findViewById(R.id.forward100Button)
-        forward500Button = findViewById(R.id.forward500Button)
+        step1Button = findViewById(R.id.step1Button)
+        step2Button = findViewById(R.id.step2Button)
+        step5Button = findViewById(R.id.step5Button)
+        step10Button = findViewById(R.id.step10Button)
+        step25Button = findViewById(R.id.step25Button)
+        step50Button = findViewById(R.id.step50Button)
+        step100Button = findViewById(R.id.step100Button)
+        step250Button = findViewById(R.id.step250Button)
+        step500Button = findViewById(R.id.step500Button)
         stopButton = findViewById(R.id.stopButton)
-        posButton = findViewById(R.id.posButton)
         logText = findViewById(R.id.logText)
         logScroll = findViewById(R.id.logScroll)
 
@@ -124,29 +130,60 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        backwardButton.setOnClickListener { sendMovementCommand("BWD", null) }
-        forwardButton.setOnClickListener { sendMovementCommand("FWD", null) }
-        backward1Button.setOnClickListener { sendMovementCommand("BWD", 1) }
-        backward5Button.setOnClickListener { sendMovementCommand("BWD", 5) }
-        backward10Button.setOnClickListener { sendMovementCommand("BWD", 10) }
-        backward50Button.setOnClickListener { sendMovementCommand("BWD", 50) }
-        backward100Button.setOnClickListener { sendMovementCommand("BWD", 100) }
-        backward500Button.setOnClickListener { sendMovementCommand("BWD", 500) }
-        forward1Button.setOnClickListener { sendMovementCommand("FWD", 1) }
-        forward5Button.setOnClickListener { sendMovementCommand("FWD", 5) }
-        forward10Button.setOnClickListener { sendMovementCommand("FWD", 10) }
-        forward50Button.setOnClickListener { sendMovementCommand("FWD", 50) }
-        forward100Button.setOnClickListener { sendMovementCommand("FWD", 100) }
-        forward500Button.setOnClickListener { sendMovementCommand("FWD", 500) }
+        if (navTabs.tabCount == 0) {
+            navTabs.addTab(navTabs.newTab().setText("Connessione"))
+            navTabs.addTab(navTabs.newTab().setText("Fuoco"))
+            navTabs.addTab(navTabs.newTab().setText("Telemetria"))
+        }
+
+        for (index in 0 until navTabs.tabCount) {
+            val tab = navTabs.getTabAt(index)
+            val label = TextView(this)
+            label.text = tab?.text?.toString()?.uppercase()
+            label.typeface = android.graphics.Typeface.create("sans-serif-monospace", android.graphics.Typeface.NORMAL)
+            label.setTextColor(ContextCompat.getColor(this, R.color.white))
+            label.letterSpacing = 0.08f
+            label.textSize = 12f
+            label.gravity = Gravity.CENTER
+            tab?.customView = label
+        }
+
+        navTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                when (tab.position) {
+                    0 -> showPage(Page.CONNECTION, false)
+                    1 -> showPage(Page.FOCUS, false)
+                    else -> showPage(Page.TELEMETRY, false)
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {;}
+            override fun onTabReselected(tab: TabLayout.Tab) {;}
+        })
+
+        backwardButton.setOnClickListener { sendMovementCommand("BWD", selectedStep) }
+        forwardButton.setOnClickListener { sendMovementCommand("FWD", selectedStep) }
+        step1Button.setOnClickListener { selectStep(1) }
+        step2Button.setOnClickListener { selectStep(2) }
+        step5Button.setOnClickListener { selectStep(5) }
+        step10Button.setOnClickListener { selectStep(10) }
+        step25Button.setOnClickListener { selectStep(25) }
+        step50Button.setOnClickListener { selectStep(50) }
+        step100Button.setOnClickListener { selectStep(100) }
+        step250Button.setOnClickListener { selectStep(250) }
+        step500Button.setOnClickListener { selectStep(500) }
         stopButton.setOnClickListener { sendCommand("STOP") }
-        posButton.setOnClickListener { requestPosition() }
+
+        selectStep(selectedStep)
 
         ensureBluetoothPermissionAndLoadDevices()
+        updateDefaultPage()
     }
 
     override fun onResume() {
         super.onResume()
         ensureBluetoothPermissionAndLoadDevices()
+        updateDefaultPage()
     }
 
     override fun onDestroy() {
@@ -173,6 +210,33 @@ class MainActivity : AppCompatActivity() {
         }
 
         refreshBondedDevices()
+    }
+
+    private enum class Page {
+        CONNECTION,
+        FOCUS,
+        TELEMETRY
+    }
+
+    private fun showPage(page: Page, syncTab: Boolean = true) {
+        connectionPageCard.visibility = if (page == Page.CONNECTION) View.VISIBLE else View.GONE
+        connectionDisclaimerCard.visibility = if (page == Page.CONNECTION) View.VISIBLE else View.GONE
+        focusPageCard.visibility = if (page == Page.FOCUS) View.VISIBLE else View.GONE
+        telemetryPreviewText.visibility = if (page == Page.FOCUS) View.VISIBLE else View.GONE
+        telemetryPageCard.visibility = if (page == Page.TELEMETRY) View.VISIBLE else View.GONE
+
+        if (syncTab) {
+            val index = when (page) {
+                Page.CONNECTION -> 0
+                Page.FOCUS -> 1
+                Page.TELEMETRY -> 2
+            }
+            navTabs.getTabAt(index)?.select()
+        }
+    }
+
+    private fun updateDefaultPage() {
+        showPage(if (socket == null) Page.CONNECTION else Page.FOCUS)
     }
 
     private fun buildDeviceAdapter(items: List<DeviceItem>): ArrayAdapter<DeviceItem> {
@@ -224,11 +288,11 @@ class MainActivity : AppCompatActivity() {
             deviceSpinner.setSelection(findPreferredDeviceIndex(items))
         }
 
-        setStatus(if (socket == null) "Disconnesso" else "Connesso: ${connectedDeviceName.orEmpty()}")
+        setStatus(if (socket == null) "Disconnesso" else "Connesso: $connectedDeviceName")
     }
 
     private fun findPreferredDeviceIndex(items: List<DeviceItem>): Int {
-        val preferredNames = listOf("JDY-31-SPP", "JDY-34-SPP", "HC-05", "HC-06")
+        val preferredNames = listOf("ArduFocus", "HC-05", "HC-06")
 
         preferredNames.forEach { preferred ->
             val index = items.indexOfFirst { item ->
@@ -277,6 +341,7 @@ class MainActivity : AppCompatActivity() {
                     requestPosition()
                     uiHandler.removeCallbacks(periodicPosRefresh)
                     uiHandler.postDelayed(periodicPosRefresh, 60000)
+                    updateDefaultPage()
                 }
             } catch (e: Exception) {
                 socket = null
@@ -317,11 +382,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun sendCommand(command: String) {
+    private fun sendCommand(command: String, trackRetry: Boolean = true) {
         val out = output
         if (out == null) {
             appendLog("APP", "Non connesso")
             return
+        }
+
+        if (trackRetry) {
+            pendingCommand = command
+            pendingCommandRetries = 5
         }
 
         thread(name = "bt-send") {
@@ -339,7 +409,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestPosition() {
-        pendingPosRetries = 5
         sendCommand("POS")
     }
 
@@ -348,35 +417,64 @@ class MainActivity : AppCompatActivity() {
 
         if (normalized.startsWith("POS ")) {
             positionValueText.text = normalized.removePrefix("POS ").trim()
-            pendingPosRetries = 0
+            pendingCommand = null
+            pendingCommandRetries = 0
             return
         }
 
         if (normalized.startsWith("INFO ")) {
-            pendingInfoRetries = 0
+            pendingCommand = null
+            pendingCommandRetries = 0
+            return
+        }
+
+        if ((normalized == "OK") || normalized.startsWith("BT READY") || normalized.startsWith("BT LINK ")) {
+            pendingCommand = null
+            pendingCommandRetries = 0
             return
         }
 
         if ((normalized == "ERR UNKNOWN") || (normalized == "ERR_UNKNOWN")) {
-            if (pendingPosRetries > 1) {
-                pendingPosRetries -= 1
-                sendCommand("POS")
-                return
+            if ((pendingCommand != null) && (pendingCommandRetries > 1)) {
+                pendingCommandRetries -= 1
+                sendCommand(pendingCommand!!, false)
             }
-
-            if (pendingInfoRetries > 1) {
-                pendingInfoRetries -= 1
-                sendCommand("INFO")
-            } else {
-                pendingPosRetries = 0
-                pendingInfoRetries = 0
+            else {
+                pendingCommand = null
+                pendingCommandRetries = 0
             }
         }
     }
 
     private fun requestInfo() {
-        pendingInfoRetries = 5
         sendCommand("INFO")
+    }
+
+    private fun selectStep(step: Int) {
+        selectedStep = step
+
+        val selectedBg = ContextCompat.getColor(this, R.color.step_selected)
+        val selectedText = ContextCompat.getColor(this, R.color.step_selected_text)
+        val normalBg = ContextCompat.getColor(this, R.color.panel_stroke)
+        val normalText = ContextCompat.getColor(this, R.color.text_primary)
+
+        val buttons = listOf(
+            step1Button to 1,
+            step2Button to 2,
+            step5Button to 5,
+            step10Button to 10,
+            step25Button to 25,
+            step50Button to 50,
+            step100Button to 100,
+            step250Button to 250,
+            step500Button to 500,
+        )
+
+        buttons.forEach { (button, value) ->
+            val isSelected = value == selectedStep
+            button.setBackgroundColor(if (isSelected) selectedBg else normalBg)
+            button.setTextColor(if (isSelected) selectedText else normalText)
+        }
     }
 
     private fun sendMovementCommand(direction: String, steps: Int?) {
@@ -404,14 +502,16 @@ class MainActivity : AppCompatActivity() {
         socket = null
         output = null
         connectedDeviceName = null
-        pendingPosRetries = 0
-        pendingInfoRetries = 0
+        pendingCommand = null
+        pendingCommandRetries = 0
         positionValueText.text = "--"
+        telemetryPreviewText.text = "--"
         connectButton.text = "Connetti"
         uiHandler.removeCallbacks(periodicPosRefresh)
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setBusy(false)
         setStatus("Disconnesso")
+        updateDefaultPage()
     }
 
     private fun setBusy(isBusy: Boolean) {
@@ -432,6 +532,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         logText.text = updated
+        telemetryPreviewText.text = updated.lines().takeLast(3).joinToString("\n")
         logScroll.post { logScroll.fullScroll(android.view.View.FOCUS_DOWN) }
     }
 }

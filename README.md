@@ -72,6 +72,7 @@ Default Bluetooth commands:
 Notes:
 
 - this fork now builds with the Arduino framework and uses `SoftwareSerial` for the Bluetooth UART on `D2/D3`
+- firmware version in this fork is `0.3-BT`
 - the ULN2003 default uses half-step mode on a fresh EEPROM for smoother 28BYJ-48 motion
 - if EEPROM already contains older settings, clear it once if you want the new defaults to take effect
 - on boot the firmware prints `BT READY` and `BT LINK UNKNOWN`; the backend can detect traffic seen on the Bluetooth UART, but it cannot universally identify or interrogate every module unless that module supports a compatible AT mode
@@ -86,12 +87,16 @@ Android app suggestion:
 Included Android app:
 
 - this repository now also contains a small native Android app in `android-app/`
-- it provides paired-device selection, connect/disconnect, continuous `Avanti` / `Indietro`, step presets, `STOP`, `POS`, and a live text log
+- it provides three pages selected from the in-app menu: connection, focuser control, and telemetry
 - if a paired module named `JDY-31-SPP` is present, the app selects it by default; otherwise it falls back to `JDY-34-SPP`, `HC-05`, `HC-06`, then the first paired device
-- the two large direction buttons send continuous `FWD` and `BWD`
-- preset buttons send relative moves for `1`, `5`, `10`, `50`, `100`, and `500` steps in either direction
-- the app shows the current focuser position, requests `POS` on connect and every 60 seconds, and retries `POS` / `INFO` up to 5 times if the firmware answers `ERR UNKNOWN`
-- after relative moves, the app updates the displayed position optimistically and later re-syncs it from the controller
+- when disconnected the app opens on the connection page; after a successful connection it defaults to the focuser page
+- the connection page shows pairing controls plus a small disclaimer panel with repository and firmware version
+- the focuser page shows a large live position readout, `BWD` and `FWD` controls, a shared selectable step keypad, `STOP`, and a compact telemetry preview
+- the telemetry page shows the full command/response log in a retro Pip-Boy inspired style and provides the `INFO` button below the log
+- the shared step keypad offers `1`, `2`, `5`, `10`, `25`, `50`, `100`, `250`, and `500` step presets; select one value and then press `BWD` or `FWD` to send the matching command
+- the app now retries any command up to 5 times if the controller answers `ERR UNKNOWN`
+- it requests `INFO` and `POS` on connect, refreshes `POS` every 60 seconds, and updates the displayed position optimistically after relative moves before re-syncing from the controller
+- the position readout uses a 7-segment display font and the telemetry page uses a dedicated retro terminal font
 - open `android-app/` with Android Studio to build the APK
 - on Android 12 and newer, grant both Bluetooth connect and Bluetooth scan permissions when the app asks for them
 - only APK files under `android-app/app/release/` are meant to be versioned; generated APKs elsewhere remain ignored

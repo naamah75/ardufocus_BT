@@ -179,7 +179,7 @@ void bluetooth_cmd::reply_position()
 
 void bluetooth_cmd::reply_info()
 {
-  bt_spp.write_line("INFO BT BACKEND AVR_SOFTSERIAL");
+  bt_spp.write_line("INFO BT BACKEND SOFTWARESERIAL");
   bt_spp.write("INFO BT BAUD ");
   bt_spp.write_uint32(BLUETOOTH_SPP_BAUDRATE);
   bt_spp.write_line("");
