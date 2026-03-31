@@ -23,6 +23,12 @@
     <color name="pip_bg">#0B140C</color>
     <color name="pip_text">#98D07A</color>
     <color name="pip_stroke">#365438</color>
+    <color name="pip_button_bg">#142318</color>
+    <color name="pip_button_bg_alt">#1A2C1E</color>
+    <color name="pip_button_selected">#98D07A</color>
+    <color name="pip_button_selected_text">#0B140C</color>
+    <color name="pip_button_red">#6E8F5A</color>
+    <color name="pip_button_green">#7FBF68</color>
     <color name="step_selected">#E8EEF9</color>
     <color name="step_selected_text">#07111E</color>
 </resources>

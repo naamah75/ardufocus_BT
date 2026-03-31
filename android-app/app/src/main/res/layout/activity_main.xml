@@ -114,10 +114,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            app:cardBackgroundColor="@color/panel_bg"
+            app:cardBackgroundColor="@color/pip_bg"
             app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
-            app:strokeColor="@color/panel_stroke"
+            app:strokeColor="@color/pip_stroke"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -138,10 +138,16 @@
                         android:id="@+id/positionValueText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_button_neutral"
                         android:fontFamily="@font/dseg7_classic_regular"
                         android:gravity="center"
+                        android:minWidth="220dp"
+                        android:paddingLeft="18dp"
+                        android:paddingTop="12dp"
+                        android:paddingRight="18dp"
+                        android:paddingBottom="12dp"
                         android:text="--"
-                        android:textColor="@color/white"
+                        android:textColor="@color/pip_text"
                         android:textSize="42sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -157,13 +163,14 @@
                         android:layout_width="0dp"
                         android:layout_height="64dp"
                         android:layout_weight="1"
-                        app:backgroundTint="@color/backward_pastel"
+                        android:fontFamily="sans-serif-monospace"
+                        app:backgroundTint="@color/pip_button_bg"
                         android:text=""
                         app:cornerRadius="10dp"
                         app:icon="@drawable/ic_focus_backward"
                         app:iconGravity="textTop"
                         app:iconPadding="0dp"
-                        app:iconTint="@null"
+                        app:iconTint="@color/pip_text"
                         app:iconSize="36dp" />
 
                     <com.google.android.material.button.MaterialButton
@@ -172,13 +179,14 @@
                         android:layout_height="64dp"
                         android:layout_marginStart="12dp"
                         android:layout_weight="1"
-                        app:backgroundTint="@color/forward_pastel"
+                        android:fontFamily="sans-serif-monospace"
+                        app:backgroundTint="@color/pip_button_bg"
                         android:text=""
                         app:cornerRadius="10dp"
                         app:icon="@drawable/ic_focus_forward"
                         app:iconGravity="textTop"
                         app:iconPadding="0dp"
-                        app:iconTint="@null"
+                        app:iconTint="@color/pip_text"
                         app:iconSize="36dp" />
                 </LinearLayout>
 
@@ -198,11 +206,12 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="sans-serif-monospace"
+                            android:fontFamily="@font/vt323_regular"
                             android:maxLines="1"
                             android:text="1"
-                            android:textColor="@color/text_primary"
-                            app:backgroundTint="@color/neutral_gray"
+                            android:textColor="@color/pip_text"
+                            android:textSize="28sp"
+                            app:backgroundTint="@color/pip_button_bg_alt"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -211,11 +220,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:layout_weight="1"
-                            android:fontFamily="sans-serif-monospace"
+                            android:fontFamily="@font/vt323_regular"
                             android:maxLines="1"
                             android:text="2"
-                            android:textColor="@color/text_primary"
-                            app:backgroundTint="@color/neutral_gray"
+                            android:textColor="@color/pip_text"
+                            android:textSize="28sp"
+                            app:backgroundTint="@color/pip_button_bg_alt"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -224,11 +234,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:layout_weight="1"
-                            android:fontFamily="sans-serif-monospace"
+                            android:fontFamily="@font/vt323_regular"
                             android:maxLines="1"
                             android:text="5"
-                            android:textColor="@color/text_primary"
-                            app:backgroundTint="@color/neutral_gray"
+                            android:textColor="@color/pip_text"
+                            android:textSize="28sp"
+                            app:backgroundTint="@color/pip_button_bg_alt"
                             app:cornerRadius="10dp" />
                     </LinearLayout>
 
@@ -243,11 +254,12 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="sans-serif-monospace"
+                            android:fontFamily="@font/vt323_regular"
                             android:maxLines="1"
                             android:text="10"
-                            android:textColor="@color/text_primary"
-                            app:backgroundTint="@color/neutral_gray"
+                            android:textColor="@color/pip_text"
+                            android:textSize="28sp"
+                            app:backgroundTint="@color/pip_button_bg_alt"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -256,11 +268,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:layout_weight="1"
-                            android:fontFamily="sans-serif-monospace"
+                            android:fontFamily="@font/vt323_regular"
                             android:maxLines="1"
                             android:text="25"
-                            android:textColor="@color/text_primary"
-                            app:backgroundTint="@color/neutral_gray"
+                            android:textColor="@color/pip_text"
+                            android:textSize="28sp"
+                            app:backgroundTint="@color/pip_button_bg_alt"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -269,11 +282,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:layout_weight="1"
-                            android:fontFamily="sans-serif-monospace"
+                            android:fontFamily="@font/vt323_regular"
                             android:maxLines="1"
                             android:text="50"
-                            android:textColor="@color/text_primary"
-                            app:backgroundTint="@color/neutral_gray"
+                            android:textColor="@color/pip_text"
+                            android:textSize="28sp"
+                            app:backgroundTint="@color/pip_button_bg_alt"
                             app:cornerRadius="10dp" />
                     </LinearLayout>
 
@@ -288,11 +302,12 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="sans-serif-monospace"
+                            android:fontFamily="@font/vt323_regular"
                             android:maxLines="1"
                             android:text="100"
-                            android:textColor="@color/text_primary"
-                            app:backgroundTint="@color/neutral_gray"
+                            android:textColor="@color/pip_text"
+                            android:textSize="28sp"
+                            app:backgroundTint="@color/pip_button_bg_alt"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -301,11 +316,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:layout_weight="1"
-                            android:fontFamily="sans-serif-monospace"
+                            android:fontFamily="@font/vt323_regular"
                             android:maxLines="1"
                             android:text="250"
-                            android:textColor="@color/text_primary"
-                            app:backgroundTint="@color/neutral_gray"
+                            android:textColor="@color/pip_text"
+                            android:textSize="28sp"
+                            app:backgroundTint="@color/pip_button_bg_alt"
                             app:cornerRadius="10dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -314,11 +330,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:layout_weight="1"
-                            android:fontFamily="sans-serif-monospace"
+                            android:fontFamily="@font/vt323_regular"
                             android:maxLines="1"
                             android:text="500"
-                            android:textColor="@color/text_primary"
-                            app:backgroundTint="@color/neutral_gray"
+                            android:textColor="@color/pip_text"
+                            android:textSize="28sp"
+                            app:backgroundTint="@color/pip_button_bg_alt"
                             app:cornerRadius="10dp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -328,10 +345,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
                     android:layout_marginTop="12dp"
-                    android:fontFamily="sans-serif-monospace"
-                    app:backgroundTint="@color/neutral_gray"
+                    android:fontFamily="@font/vt323_regular"
+                    app:backgroundTint="@color/pip_button_bg"
                     android:text="STOP"
-                    android:textColor="@color/white"
+                    android:textColor="@color/pip_text"
+                    android:textSize="20sp"
                     app:cornerRadius="10dp" />
 
             </LinearLayout>
@@ -342,7 +360,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/pip_bg"
+            android:background="@drawable/bg_pip_panel"
             android:fontFamily="@font/vt323_regular"
             android:minHeight="72dp"
             android:padding="12dp"
@@ -393,10 +411,11 @@
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-monospace"
+            android:fontFamily="@font/vt323_regular"
             android:text="INFO"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/neutral_gray"
+            android:textColor="@color/pip_text"
+            android:textSize="20sp"
+            app:backgroundTint="@color/pip_button_bg"
             app:cornerRadius="10dp" />
 
     </LinearLayout>

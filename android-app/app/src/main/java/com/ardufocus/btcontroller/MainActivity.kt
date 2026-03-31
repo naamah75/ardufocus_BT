@@ -457,10 +457,10 @@ class MainActivity : AppCompatActivity() {
     private fun selectStep(step: Int) {
         selectedStep = step
 
-        val selectedBg = ContextCompat.getColor(this, R.color.step_selected)
-        val selectedText = ContextCompat.getColor(this, R.color.step_selected_text)
-        val normalBg = ContextCompat.getColor(this, R.color.panel_stroke)
-        val normalText = ContextCompat.getColor(this, R.color.text_primary)
+        val selectedBg = ContextCompat.getColor(this, R.color.pip_button_selected)
+        val selectedText = ContextCompat.getColor(this, R.color.pip_button_selected_text)
+        val normalBg = ContextCompat.getColor(this, R.color.pip_button_bg_alt)
+        val normalText = ContextCompat.getColor(this, R.color.pip_text)
 
         val buttons = listOf(
             step1Button to 1,

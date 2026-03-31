@@ -24,3 +24,4 @@ output-metadata.json
 # OS/editor noise
 .DS_Store
 Thumbs.db
+hs_err_pid*.log
