@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var step250Button: Button
     private lateinit var step500Button: Button
     private lateinit var stopButton: Button
+    private lateinit var infoButton: Button
     private lateinit var logText: TextView
     private lateinit var logScroll: ScrollView
 
@@ -117,6 +118,7 @@ class MainActivity : AppCompatActivity() {
         step250Button = findViewById(R.id.step250Button)
         step500Button = findViewById(R.id.step500Button)
         stopButton = findViewById(R.id.stopButton)
+        infoButton = findViewById(R.id.infoButton)
         logText = findViewById(R.id.logText)
         logScroll = findViewById(R.id.logScroll)
 
@@ -173,6 +175,7 @@ class MainActivity : AppCompatActivity() {
         step250Button.setOnClickListener { selectStep(250) }
         step500Button.setOnClickListener { selectStep(500) }
         stopButton.setOnClickListener { sendCommand("STOP") }
+        infoButton.setOnClickListener { requestInfo() }
 
         selectStep(selectedStep)
 
@@ -224,6 +227,7 @@ class MainActivity : AppCompatActivity() {
         focusPageCard.visibility = if (page == Page.FOCUS) View.VISIBLE else View.GONE
         telemetryPreviewText.visibility = if (page == Page.FOCUS) View.VISIBLE else View.GONE
         telemetryPageCard.visibility = if (page == Page.TELEMETRY) View.VISIBLE else View.GONE
+        infoButton.visibility = if (page == Page.TELEMETRY) View.VISIBLE else View.GONE
 
         if (syncTab) {
             val index = when (page) {
