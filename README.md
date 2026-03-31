@@ -1,5 +1,3 @@
-![Image](https://ardufocus.com/assets/images/layout/logo-github.png)
-
 [![Donate Patreon](https://img.shields.io/badge/Donate-Patreon-blue.svg?style=for-the-badge)](https://www.patreon.com/join/jbrazio?)
 [![Donate PayPal](https://img.shields.io/badge/Donate-Paypal-blue.svg?style=for-the-badge)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D5XZ7QFLP8LXE)
 [![Download beta](https://img.shields.io/github/release-pre/naamah75/ardufocus_BT.svg?style=for-the-badge)](https://github.com/naamah75/ardufocus_BT/releases)
@@ -58,10 +56,14 @@ Bluetooth wiring note:
 
 - many JDY-34 boards use 3.3 V logic on `RXD`; if your board is not explicitly 5 V tolerant, add a level shifter or a resistor divider between `UNO D3` and `JDY-34 RXD`
 
+3D printable enclosure:
+
+[https://www.thingiverse.com/thing:5140868](https://www.thingiverse.com/thing:5140868)
+
 Default Bluetooth commands:
 
-- `FWD` or `AVANTI`: continuous forward move
-- `BWD` or `INDIETRO`: continuous backward move
+- `FWD`: continuous forward move
+- `BWD`: continuous backward move
 - `FWD <n>`: move forward by `n` steps
 - `BWD <n>`: move backward by `n` steps
 - `STOP`: stop movement
@@ -77,34 +79,6 @@ Notes:
 - on boot the firmware prints `BT READY` and `BT LINK UNKNOWN`; the backend can detect traffic seen on the Bluetooth UART, but it cannot universally identify or interrogate every module unless that module supports a compatible AT mode
 - if you enable `ENABLE_UART_DEBUG_CONSOLE` in `ardufocus/config.h`, the USB serial port stops speaking ASCOM/Moonlite and becomes a plain text debug console for `FWD`, `BWD`, `STOP`, `POS`, `INFO` and `HELP`
 
-Android app suggestion:
-
-- `Serial Bluetooth Terminal` is the easiest ready-made Android app for this firmware
-- it supports Bluetooth Classic SPP modules such as `JDY-34-SPP`, `HC-05` and `HC-06`
-- you can create custom buttons/macros like `FWD`, `BWD`, `STOP`, `FWD 50`, `BWD 50`, `POS` and `INFO`
-
-Included Android app:
-
-- this repository now also contains a small native Android app in `android-app/`
-- it provides three pages selected from the in-app menu: connection, focuser control, and telemetry
-- if a paired module named `JDY-31-SPP` is present, the app selects it by default; otherwise it falls back to `JDY-34-SPP`, `HC-05`, `HC-06`, then the first paired device
-- when disconnected the app opens on the connection page; after a successful connection it defaults to the focuser page
-- the connection page shows pairing controls plus a small disclaimer panel with repository and firmware version
-- the focuser page shows a large live position readout, `BWD` and `FWD` controls, a shared selectable step keypad, `STOP`, and a compact telemetry preview
-- the telemetry page shows the full command/response log in a retro Pip-Boy inspired style and provides the `INFO` button below the log
-- the shared step keypad offers `1`, `2`, `5`, `10`, `25`, `50`, `100`, `250`, and `500` step presets; select one value and then press `BWD` or `FWD` to send the matching command
-- the app now retries any command up to 5 times if the controller answers `ERR UNKNOWN`
-- it requests `INFO` and `POS` on connect, refreshes `POS` every 60 seconds, and updates the displayed position optimistically after relative moves before re-syncing from the controller
-- the position readout uses a 7-segment display font and the telemetry page uses a dedicated retro terminal font
-- open `android-app/` with Android Studio to build the APK
-- on Android 12 and newer, grant both Bluetooth connect and Bluetooth scan permissions when the app asks for them
-- only APK files under `android-app/app/release/` are meant to be versioned; generated APKs elsewhere remain ignored
-
-Build:
-
-```ini
-pio run -e uno
-```
 
 ### For documentation, tutorials and howto visit [ardufocus.com](https://ardufocus.com).
 
