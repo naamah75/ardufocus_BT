@@ -31,13 +31,13 @@ This version adds:
 ## 📸 Demo
 
 ### 📱 Mobile App – Focus Control
-![Focus Control](docs/app_focus.jpg)
+![Focus Control](https://github.com/naamah75/ardufocus_BT/blob/master/doc/app_focus.jpg)
 
 ### 📡 Telemetry & Debug
-![Telemetry](docs/app_telemetry.jpg)
+![Telemetry](https://github.com/naamah75/ardufocus_BT/blob/master/doc/app_telemetry.jpg)
 
 ### 🔗 Bluetooth Connection
-![Connection](docs/app_connection.jpg)
+![Connection](https://github.com/naamah75/ardufocus_BT/blob/master/doc/app_connection.jpg)
 
 ---
 
