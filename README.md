@@ -30,14 +30,9 @@ This version adds:
 
 ## 📸 Demo
 
-### 📱 Mobile App – Focus Control
-![Focus Control](https://github.com/naamah75/ardufocus_BT/blob/master/doc/app_focus.jpg)
-
-### 📡 Telemetry & Debug
-![Telemetry](https://github.com/naamah75/ardufocus_BT/blob/master/doc/app_telemetry.jpg)
-
-### 🔗 Bluetooth Connection
-![Connection](https://github.com/naamah75/ardufocus_BT/blob/master/doc/app_connection.jpg)
+| Bluetooth Connection | Focus Control | Telemetry & Debug |
+|------------|------------|------------|
+|![Focus Control](https://github.com/naamah75/ardufocus_BT/blob/master/doc/app_focus.jpg)|![Telemetry](https://github.com/naamah75/ardufocus_BT/blob/master/doc/app_telemetry.jpg)|![Connection](https://github.com/naamah75/ardufocus_BT/blob/master/doc/app_connection.jpg)|
 
 ---
 
