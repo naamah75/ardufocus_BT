@@ -1,85 +1,119 @@
-[![Donate Patreon](https://img.shields.io/badge/Donate-Patreon-blue.svg?style=for-the-badge)](https://www.patreon.com/join/jbrazio?)
-[![Donate PayPal](https://img.shields.io/badge/Donate-Paypal-blue.svg?style=for-the-badge)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D5XZ7QFLP8LXE)
-[![Download beta](https://img.shields.io/github/release-pre/naamah75/ardufocus_BT.svg?style=for-the-badge)](https://github.com/naamah75/ardufocus_BT/releases)
-[![GitHub stars](https://img.shields.io/github/stars/naamah75/ardufocus_BT.svg?style=for-the-badge)](https://github.com/naamah75/ardufocus_BT/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/naamah75/ardufocus_BT.svg?style=for-the-badge)](https://github.com/naamah75/ardufocus_BT/network)
+# 🔭 Ardufocus BT – Wireless Telescope Focuser
 
-**Ardufocus - The most accurate Open Source focus controller.**
+> Turn your Ardufocus into a **fully wireless focuser system**
 
-Ardufocus is the only OSS/OSH controller supporting **two independent** focusing motors, **high resolution**
-mode allowing **sub μm** movements by step, multiple acceleration profiles and it will never forget your
-focuser position between restarts.
+Bluetooth-enabled fork of Ardufocus designed for **portable astrophotography setups**.
 
-Ardufocus is a multi repository project:
-- [Ardufocus firmware](https://github.com/jbrazio/ardufocus)
-- [Ardufocus schematics](https://github.com/jbrazio/ardufocus-schematics)
-- [Ardufocus ASCOM IFocuserV3 Driver](https://github.com/jbrazio/ardufocus-ascom)
+---
 
-Ardufocus is licensed under [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html). <br />
-Ardufocus PCB schematics are licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+## 🚀 Why this fork?
 
-----
+Classic Ardufocus requires a USB cable.
 
-### This fork targets Arduino UNO class boards based on the ATmega328P/168 family.
+This version adds:
 
-Default hardware profile in this repository:
+- 📡 Wireless control via Bluetooth
+- 📱 Smartphone interface
+- 🧳 Cleaner field setup (no cables hanging from the telescope)
 
-- `Arduino UNO`
-- `28BYJ-48` unipolar stepper motor
-- `ULN2003` driver board
-- build system based on `PlatformIO` with `framework = arduino`
-- ASCOM / Moonlite serial control on the hardware UART
-- JDY-34-SPP / HC-05 / HC-06 Bluetooth control via `SoftwareSerial`
+---
 
-Default pinout in this fork:
+## ✨ Features
 
-- `D0/D1`: hardware serial for ASCOM / Moonlite
-- `D2`: Bluetooth RX from JDY-34-SPP TX
-- `D3`: Bluetooth TX to JDY-34-SPP RX
-- `D8/D9/D10/D11`: ULN2003 `IN1/IN2/IN3/IN4`
+- Bluetooth serial communication (JDY-31 / HC-05 / HC-06)
+- Compatible with ASCOM / Moonlite (via hardware UART)
+- Real-time telemetry
+- Step-based precision control
+- Mobile-friendly interface
 
-Quick wiring reference:
+---
 
-- `UNO 5V` -> `ULN2003 VCC`
-- `UNO GND` -> `ULN2003 GND`
-- `UNO D8` -> `ULN2003 IN1`
-- `UNO D9` -> `ULN2003 IN2`
-- `UNO D10` -> `ULN2003 IN3`
-- `UNO D11` -> `ULN2003 IN4`
-- `28BYJ-48` -> `ULN2003` motor connector
-- `UNO 5V` -> `JDY-34 VCC` only if your module board is 5V tolerant; otherwise power it at the module's required voltage
-- `UNO GND` -> `JDY-34 GND`
-- `UNO D2` <- `JDY-34 TXD`
-- `UNO D3` -> `JDY-34 RXD`
+## 📸 Demo
 
-Bluetooth wiring note:
+### 📱 Mobile App – Focus Control
+![Focus Control](docs/app_focus.jpg)
 
-- many JDY-34 boards use 3.3 V logic on `RXD`; if your board is not explicitly 5 V tolerant, add a level shifter or a resistor divider between `UNO D3` and `JDY-34 RXD`
+### 📡 Telemetry & Debug
+![Telemetry](docs/app_telemetry.jpg)
+
+### 🔗 Bluetooth Connection
+![Connection](docs/app_connection.jpg)
+
+---
+
+## 🔧 Hardware Setup
+
+### 🧩 Default Configuration
+
+- Arduino UNO  
+- 28BYJ-48 stepper motor  
+- ULN2003 driver  
+- JDY-31 / JDY-34 / HC-05 / HC-06 Bluetooth module  
+- PlatformIO (Arduino framework)
+
+---
+
+### 🔌 Pinout
+
+| Arduino Pin | Function |
+|------------|--------|
+| D0 / D1 | Hardware Serial (ASCOM / Moonlite) |
+| D2 | Bluetooth RX (from module TX) |
+| D3 | Bluetooth TX (to module RX) |
+| D8 | ULN2003 IN1 |
+| D9 | ULN2003 IN2 |
+| D10 | ULN2003 IN3 |
+| D11 | ULN2003 IN4 |
+
+---
+
+### ⚡ Wiring
+
+#### Stepper + Driver
+
+`UNO 5V`  -> `ULN2003 VCC` 
+`UNO GND` -> `ULN2003 GND`  
+
+`UNO D8`  -> `ULN2003 IN1` 
+`UNO D9`  -> `ULN2003 IN2`  
+`UNO D10` -> `ULN2003 IN3`  
+`UNO D11` -> `ULN2003 IN4`  
+
+`28BYJ-48`-> `ULN2003 connector` 
+
+#### Bluetooth Module
+
+`UNO GND` -> `BT GND`  
+`UNO D2` <- `BT TXD`  
+`UNO D3` -> `BT RXD`  
+
+⚠️ Some modules are NOT 5V tolerant → use 3.3V or level shifting if needed.
+
+---
+
+## 📡 Bluetooth Configuration
+
+- Backend: SoftwareSerial  
+- Baud rate: 9600  
+- RX pin: D2  
+- TX pin: D3  
+
+---
+
+## 🧱 Case
 
 3D printable enclosure:
 
-[https://www.thingiverse.com/thing:5140868](https://www.thingiverse.com/thing:5140868)
+https://www.thingiverse.com/thing:5140868
 
-Default Bluetooth commands:
+---
 
-- `FWD`: continuous forward move
-- `BWD`: continuous backward move
-- `FWD <n>`: move forward by `n` steps
-- `BWD <n>`: move backward by `n` steps
-- `STOP`: stop movement
-- `POS`: report current position
-- `INFO`: report Bluetooth backend info and whether any traffic has been seen since boot
+## 🤝 Credits
 
-Notes:
+Based on original Ardufocus project.
 
-- this fork now builds with the Arduino framework and uses `SoftwareSerial` for the Bluetooth UART on `D2/D3`
-- firmware version in this fork is `0.3-BT`
-- the ULN2003 default uses half-step mode on a fresh EEPROM for smoother 28BYJ-48 motion
-- if EEPROM already contains older settings, clear it once if you want the new defaults to take effect
-- on boot the firmware prints `BT READY` and `BT LINK UNKNOWN`; the backend can detect traffic seen on the Bluetooth UART, but it cannot universally identify or interrogate every module unless that module supports a compatible AT mode
-- if you enable `ENABLE_UART_DEBUG_CONSOLE` in `ardufocus/config.h`, the USB serial port stops speaking ASCOM/Moonlite and becomes a plain text debug console for `FWD`, `BWD`, `STOP`, `POS`, `INFO` and `HELP`
+---
 
+## 📢 Feedback
 
-### For documentation, tutorials and howto visit [ardufocus.com](https://ardufocus.com).
-
-----
+Suggestions, issues and improvements are welcome!
