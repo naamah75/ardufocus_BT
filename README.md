@@ -30,7 +30,7 @@ This version adds:
 
 ## 📸 Demo
 
-| Bluetooth Connection | Focus Control | Telemetry & Debug |
+| Focus Control | Telemetry & Debug | Bluetooth Connection |
 |------------|------------|------------|
 |![Focus Control](https://github.com/naamah75/ardufocus_BT/blob/master/doc/app_focus.jpg)|![Telemetry](https://github.com/naamah75/ardufocus_BT/blob/master/doc/app_telemetry.jpg)|![Connection](https://github.com/naamah75/ardufocus_BT/blob/master/doc/app_connection.jpg)|
 
@@ -66,13 +66,13 @@ This version adds:
 
 #### Stepper + Driver
 
-`UNO 5V`  -> `ULN2003 VCC` 
-`UNO GND` -> `ULN2003 GND`  
+`UNO 5V`  -> `ULN2003 VCC`  
+`UNO GND` -> `ULN2003 GND`
 
-`UNO D8`  -> `ULN2003 IN1` 
+`UNO D8`  -> `ULN2003 IN1`  
 `UNO D9`  -> `ULN2003 IN2`  
 `UNO D10` -> `ULN2003 IN3`  
-`UNO D11` -> `ULN2003 IN4`  
+`UNO D11` -> `ULN2003 IN4`
 
 `28BYJ-48`-> `ULN2003 connector` 
 
