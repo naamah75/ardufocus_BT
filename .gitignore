@@ -6,3 +6,4 @@
 .DS_Store
 Thumbs.db
 ardufocus/localcfg.h
+doc/local_backup/
